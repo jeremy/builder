@@ -188,7 +188,11 @@ namespace "tags" do
   
   file "TAGS" => SRC_RB do
     puts "Makings TAGS"
-    sh "#{TAGS} #{SRC_RB}", :verbose => false
+    begin
+      sh "#{TAGS} #{SRC_RB}", :verbose => false
+    rescue
+      $stderr.puts "TAGS skipped: install xctags to run"
+    end
   end
 end
   
