@@ -94,7 +94,8 @@ class Fixnum
   # converted to character entities.
   def xchr(escape=true)
     n = XChar::CP1252[self] || self
-    case n when *XChar::VALID
+    case n
+    when 0x9, 0xA, 0xD, (0x20..0xD7FF), (0xE000..0xFFFD), (0x10000..0x10FFFF)
       XChar::PREDEFINED[n] or (n<128 ? n.chr : (escape ? "&##{n};" : [n].pack('U*')))
     else
       '*'
