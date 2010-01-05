@@ -142,11 +142,29 @@ classes that make heavy use of method_missing.
     Rake::GemPackageTask.new(spec) do |t|
       t.need_tar = true
     end
+
+    desc 'Generate builder.gemspec'
+    task :gemspec => 'builder.gemspec'
+
+    file 'builder.gemspec' => 'Rakefile' do
+      File.open 'builder.gemspec', 'w' do |f|
+        f.write spec.to_ruby
+      end
+    end
   end
   
   namespace 'blankslate' do
     Rake::GemPackageTask.new(blankslate_spec) do |t|
       t.need_tar = true
+    end
+
+    desc 'Generate blankslate.gemspec'
+    task :gemspec => 'blankslate.gemspec'
+
+    file 'blankslate.gemspec' => 'Rakefile' do
+      File.open 'blankslate.gemspec', 'w' do |f|
+        f.write blankslate_spec.to_ruby
+      end
     end
   end
 
